@@ -5,6 +5,7 @@
 
 # Purpose:
 ## This script downloads data from Landsat 9 using the NASA AppEEARS API
+## into your local machine. 
 
 ## --------------------------------------------- ##
 #               Housekeeping -----
