@@ -19,7 +19,7 @@ How to convert .mdb to .shp according to this [YouTube tutorial](https://www.you
 
 3. Open ODBC Data Sources -> "Add ..." -> "Microsoft Access Driver (\*.mdb, \*.accdb)" -> "Finish" -> Enter a name for "Data Source Name" -> Select the .mdb file under "Database" -> "OK"
 
-4. Once the database connection has been set, open QGIS -> "Layer" -> "Add Layer" -> "Add Vector Layer" -> "Database" -> "ESRI Personal Geodatabase" -> "New" -> Name: enter the same name you gave the data source, Host: same thing, Database: same thing -> "Test Connection" -> if it connects, click "Add" and skip the password prompt
+4. Once the database connection has been set, open QGIS -> "Layer" -> "Add Layer" -> "Add Vector Layer" -> "Database" -> "ESRI Personal Geodatabase" -> "New" -> Name: enter the same name you gave the data source, Host: enter the same name you gave the data source, Database: enter the same name you gave the data source -> "Test Connection" -> if it connects, click "Add" and skip the password prompt
 
 5. After you select the layers to add, right-click on the layer and "Export" to export as shapefile
 
