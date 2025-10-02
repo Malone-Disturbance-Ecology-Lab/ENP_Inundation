@@ -51,3 +51,5 @@ rsconnect/
 *.Rproj
 
 appeears_landsat_data/
+
+.DS_Store
