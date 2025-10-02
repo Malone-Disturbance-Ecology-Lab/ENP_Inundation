@@ -37,7 +37,7 @@ ebicy_url <- "https://irma.nps.gov/DataStore/DownloadFile/640065"
 
 # Download
 curl::curl_download(url = ebicy_url, 
-                    destfile = file.path(server_folder, "BICY_veg", "original_data", "EBICYNP_VegMap_v20191031.zip"),
+                    destfile = file.path(server_folder, "BICY", "original_data", "EBICYNP_VegMap_v20191031.zip"),
                     quiet = F)
 
 # Specify URL to download Western BICY vegetation data
@@ -45,7 +45,7 @@ wbicy_url <- "https://irma.nps.gov/DataStore/DownloadFile/646891"
 
 # Download
 curl::curl_download(url = wbicy_url, 
-                    destfile = file.path(server_folder, "BICY_veg", "original_data", "wbicynp_vegmap_and_rpt_v20200825.zip"),
+                    destfile = file.path(server_folder, "BICY", "original_data", "wbicynp_vegmap_and_rpt_v20200825.zip"),
                     quiet = F)
 
 # Specify URL to download ENP vegetation data
@@ -53,5 +53,5 @@ enp_url <- "https://irma.nps.gov/DataStore/DownloadFile/660232"
 
 # Download
 curl::curl_download(url = enp_url, 
-                    destfile = file.path(server_folder, "ENP_veg", "original_data", "EVER_VegMap_Geospatial_Product_&_Report_v20210518.zip"),
+                    destfile = file.path(server_folder, "ENP", "original_data", "EVER_VegMap_Geospatial_Product_&_Report_v20210518.zip"),
                     quiet = F)
