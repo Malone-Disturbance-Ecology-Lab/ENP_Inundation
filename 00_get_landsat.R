@@ -4,8 +4,8 @@
 # Script author(s): Angel Chen
 
 # Purpose:
-## This script downloads data from Landsat 9 using the NASA AppEEARS API
-## into your local machine. 
+## This script downloads data from Landsat 9 using the NASA AppEEARS API into your local machine. 
+## The Landsat rasters will cover the Everglades National Park (ENP) and Big Cypress (BICY) National Preserve. 
 
 ## --------------------------------------------- ##
 #               Housekeeping -----
