@@ -92,6 +92,7 @@ veg_points_v0 <- sf::st_join(landsat_points, ENP_BICY, join = st_within)
 
 # Filter out the points that don't have vegetation info
 veg_points_v1 <- veg_points_v0 %>% 
+  dplyr::select(-L09.002_SR_B1_CU_doy2025216_aid0001) %>%
   dplyr::filter(!is.na(Region))
 
 # Check
@@ -99,3 +100,6 @@ veg_points_v1 <- veg_points_v0 %>%
 #   ggplot() +
 #   geom_sf(aes(geometry = geometry, color = L2_name))
 
+# Export extracted vegetation points
+sf::st_write(veg_points_v1, file.path(server_folder, "ENP_BICY", "ENP_BICY_veg.shp"),
+             append = FALSE)
