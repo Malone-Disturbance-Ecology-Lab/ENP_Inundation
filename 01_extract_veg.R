@@ -28,7 +28,13 @@ landsat_raster <- terra::rast(file.path("appeears_landsat_data", "ENP_BICY_AOI",
 
 landsat_points <- landsat_raster %>%
   # Convert Landsat raster to point data
-  as.data.frame(xy = T) %>%
+  as.data.frame(na.rm = F, xy = T) %>%
+  # Replace missing values with "9999" as placeholder
+  # So we can extract veg info to the points later
+  dplyr::mutate(L09.002_SR_B1_CU_doy2025216_aid0001 = dplyr::case_when(
+    is.na(L09.002_SR_B1_CU_doy2025216_aid0001) ~ 9999,
+    T ~ L09.002_SR_B1_CU_doy2025216_aid0001
+  )) %>%
   # Convert point data to sf object with coordinates
   sf::st_as_sf(coords = c("x", "y"), crs = 4326)
 
