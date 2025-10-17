@@ -7,6 +7,8 @@ A repo for the ENP Inundation project (work in progress)
 
 - **00_get_ENP_BICY_veg.R**: This script downloads Everglades National Park (ENP) and Big Cypress (BICY) vegetation data from the NPS DataStore into the MaloneLab server. The Eastern BICY vegetation data is saved as `EBICYNP_VegMap_v20191031.zip`, the western BICY vegetation data is saved as `wbicynp_vegmap_and_rpt_v20200825`, and the ENP vegetation data is saved as `EVER_VegMap_Geospatial_Product_&_Report_v20210518.zip`. NOTE: the BICY data comes in .mdb format and will need to be converted to .shp for use (see below).
 
+- **01_convert_veg_to_points.R**: This script harmonizes the ENP and BICY shapefiles, rasterizes them to the Landsat raster, and finally converts them to point data. Exports point shapefile under `malonelab` -> `Research` -> `ENP` -> `ENP_BICY_veg_geospatial_files` -> `ENP_BICY` -> `ENP_BICY_veg.shp`
+
 ## How to convert personal geodatabase (.mdb) to shapefile (.shp)
 
 The geospatial information for Eastern and Western BICY is stored in `EBICYNP_VegMap.mdb` and `WBICYNP_VegMap_v20200825.mdb` inside their respective zip files. These files are personal geodatabases, which are a type of ESRI proprietary data format. 
