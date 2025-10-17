@@ -20,23 +20,13 @@ librarian::shelf(sf, terra, tidyverse)
 server_folder <- file.path("/", "Volumes", "malonelab", "Research", "ENP", "ENP_BICY_veg_geospatial_files") 
 
 ## --------------------------------------------- ##
-#       Convert Landsat Raster to Points -----
+#           Prepare Landsat Raster -----
 ## --------------------------------------------- ##
 
 # Read in Landsat raster
-landsat_raster <- terra::rast(file.path("appeears_landsat_data", "ENP_BICY_AOI", "L09.002_SR_B1_CU_doy2025216_aid0001.tif"))
-
-landsat_points <- landsat_raster %>%
-  # Convert Landsat raster to point data
-  as.data.frame(na.rm = F, xy = T) %>%
-  # Replace missing values with "9999" as placeholder
-  # So we can extract veg info to the points later
-  dplyr::mutate(L09.002_SR_B1_CU_doy2025216_aid0001 = dplyr::case_when(
-    is.na(L09.002_SR_B1_CU_doy2025216_aid0001) ~ 9999,
-    T ~ L09.002_SR_B1_CU_doy2025216_aid0001
-  )) %>%
-  # Convert point data to sf object with coordinates
-  sf::st_as_sf(coords = c("x", "y"), crs = 4326)
+landsat_raster <- terra::rast(file.path("appeears_landsat_data", "ENP_BICY_AOI", "L09.002_SR_B1_CU_doy2025216_aid0001.tif")) %>%
+  # Fill out every cell with a value
+  terra::setValues(1:ncell(.)) 
 
 ## --------------------------------------------- ##
 #   Harmonize ENP and BICY Geospatial Data -----
@@ -87,25 +77,26 @@ enp_veg <- sf::st_read(dsn = file.path(server_folder, "ENP", "original_data", "E
 # Combine ENP and BICY sf dataframes
 ENP_BICY <- rbind(enp_veg, wbicy_veg, ebicy_veg) %>%
   # Reproject to Landsat CRS (EPSG:4326)
-  sf::st_transform(crs = sf::st_crs(landsat_points))
+  sf::st_transform(crs = sf::st_crs(landsat_raster))
 
 ## --------------------------------------------- ##
-#               Extraction -----
+#       Convert Veg Shapefile to Points -----
 ## --------------------------------------------- ##
 
-# Extract vegetation info to points
-veg_points_v0 <- sf::st_join(landsat_points, ENP_BICY, join = st_within)
+# Rasterize our veg shapefile to the Landsat raster
+ENP_BICY_raster <- terra::rasterize(x = ENP_BICY, y = landsat_raster, field = "L3_name", background = NA) 
 
-# Filter out the points that don't have vegetation info
-veg_points_v1 <- veg_points_v0 %>% 
-  dplyr::select(-L09.002_SR_B1_CU_doy2025216_aid0001) %>%
-  dplyr::filter(!is.na(Region))
+# Convert from raster to points
+ENP_BICY_pts <- terra::as.points(ENP_BICY_raster) %>% 
+  # Convert back to sf object
+  sf::st_as_sf()
 
 # Check
-# veg_points_v1 %>%
+# ENP_BICY_pts %>%
 #   ggplot() +
-#   geom_sf(aes(geometry = geometry, color = L2_name))
+#   geom_sf(aes(geometry = geometry, color = L3_name)) + 
+#   theme(legend.position = "none")
 
-# Export extracted vegetation points
-sf::st_write(veg_points_v1, file.path(server_folder, "ENP_BICY", "ENP_BICY_veg.shp"),
+# Export vegetation points
+sf::st_write(ENP_BICY_pts, file.path(server_folder, "ENP_BICY", "ENP_BICY_veg.shp"),
              append = FALSE)
