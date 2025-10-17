@@ -4,8 +4,9 @@
 # Script author(s): Angel Chen
 
 # Purpose:
-## This script converts the ENP BICY Landsat raster to points
-## and combines the point data with vegetation info from the NPS DataStore.
+## This script harmonizes the ENP and BICY shapefiles,
+## rasterizes them to the Landsat raster,
+## and finally converts them to point data.
 
 ## --------------------------------------------- ##
 #               Housekeeping -----
