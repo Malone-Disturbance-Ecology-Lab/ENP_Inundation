@@ -1,5 +1,5 @@
 ## --------------------------------------------- ##
-#         Extract Vegetation to Points
+#         Convert Vegetation to Points
 ## --------------------------------------------- ##
 # Script author(s): Angel Chen
 
