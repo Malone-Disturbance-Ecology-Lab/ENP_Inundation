@@ -4,9 +4,9 @@
 # Script author(s): Angel Chen
 
 # Purpose:
-## This script harmonizes the ENP and BICY shapefiles,
+## This script harmonizes the ENP and BICY veg shapefiles,
 ## rasterizes them to the Landsat raster,
-## and finally converts them to point data.
+## and finally converts them to a point shapefile.
 
 ## --------------------------------------------- ##
 #               Housekeeping -----
